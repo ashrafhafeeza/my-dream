@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dream 🚀🚀</title>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Notification System -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Header -->
+    <header class="site-header" id="header">
+        <div class="header-inner">
+            <div class="brand">
+                <h1>Ashraf's Journey</h1>
+                <div class="sub">Dukungan untuk Meraih Cita-Cita Ashraf - Santri Penghafal Qur'an & Calon IT Developer</div>
+            </div>
+            <button class="mobile-toggle" id="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="navbar" id="navbar">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#profile" class="nav-link">Profile</a>
+                <a href="#timeline" class="nav-link">Timeline</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#target" class="nav-link">Target</a>
+                <a href="#payment" class="nav-link">Payment</a>
+                <a href="#support" class="nav-link">Dukungan</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-left">
+                <h1>Dukungan untuk Meraih Cita-Cita Ashraf</h1>
+                <h2>Santri Penghafal Qur'an yang Bercita-cita Jadi Ahli IT</h2>
+                <p class="lead">Bantu perjalanan saya menyeimbangkan ilmu agama dan teknologi untuk masa depan yang lebih baik</p>
+                <a href="#support" class="cta">🤝 Bantu Sekarang</a>
+            </div>
+            <div class="hero-right">
+                <div class="profile-showcase">
+                    <div class="main-profile-photo">
+                        <img src="AshrafOri.jpg" alt="Ashraf El-Hafieza Rusmana" loading="lazy">
+                        <div class="photo-frame"></div>
+                    </div>
+                    <div class="profile-badge">
+                        <span>🎓 Santri Berprestasi</span>
+                        <span>💻 Calon IT Developer</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="about-section fade-in">
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="AshrafOri.jpg" alt="Ashraf El-Hafieza Rusmana" loading="lazy">
+                </div>
+                <div class="about-text">
+                    <h2>Halo, Saya Ashraf! 👋</h2>
+                    <p class="subtitle">Santri di Pesantren Tahfidz Qur'an & Digital Ar-Rahman, Bekasi</p>
+
+                    <p>Perkenalkan, nama saya <strong>Ashraf El-Hafieza Rusmana</strong>, umur 16 tahun dari Bekasi. Saat ini saya sekolah di Pesantren Tahfidz Qur'an & Digital Ar-Rahman, kelas XI jurusan Rekayasa Perangkat Lunak (RPL).</p>
+
+                    <div class="highlight-box">
+                        <h4>🎓 Berkat Beasiswa 6 Tahun</h4>
+                        <p>Alhamdulillah, saya dapat <strong>beasiswa penuh 6 tahun</strong> dari pesantren setelah lulus tes seleksi. Cuma bayar SPP <strong>Rp 250.000 per bulan</strong> aja, udah termasuk semua fasilitas dan program tahfidz Qur'an plus belajar IT.</p>
+                    </div>
+
+                    <p><strong>Kenapa Saya Pilih Pesantren Ini?</strong></p>
+                    <p>Karena di sini saya bisa sekaligus belajar menghafal Qur'an dan menguasai teknologi. Pengen banget jadi generasi muda yang pinter agama tapi juga melek digital!</p>
+
+                    <p><strong>Cita-cita Saya:</strong></p>
+                    <p>Pengen jadi <strong>Hafidz Qur'an yang jago IT</strong>, biar bisa bermanfaat buat orang banyak dengan ilmu yang dipelajari. Sekarang zamannya digital, jadi pengen banget bisa kontribusi lewat teknologi.</p>
+
+                    <div class="personal-info">
+                        <div class="info-item">
+                            <span class="info-icon">🎂</span>
+                            <span>8 Januari 2009</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📍</span>
+                            <span>Bekasi, Jawa Barat</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">👨‍👩‍👧‍👦</span>
+                            <span>Anak kedua dari 3 bersaudara</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">⚽</span>
+                            <span>Hobi: Futsal & Coding</span>
+                        </div>
+                    </div>
+
+                    <div class="quote">
+                        "Pengen banget bisa seimbang antara ilmu dunia dan akhirat, biar jadi orang yang bermanfaat buat semuanya."
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="timeline-section fade-in">
+            <h2>📅 Perjalanan Ashraf di Pesantren</h2>
+            <p class="section-subtitle">Dari santri baru sampai calon IT developer</p>
+
+            <div class="timeline-container">
+                <!-- Kelas 7 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2021-2022</div>
+                    <div class="timeline-content">
+                        <h4>🎒 Masuk Pesantren - Kelas 7</h4>
+                        <p class="muted">Awal perjalanan sebagai santri. Adaptasi dengan kehidupan asrama, bangun jam 4 pagi, dan mulai menghafal Qur'an dari nol. "Pertama kali jauh dari orang tua, tapi semangat buat jadi hafidz!"</p>
+                    </div>
+                </div>
+
+                <!-- Kelas 8 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2022-2023</div>
+                    <div class="timeline-content">
+                        <h4>📚 Tahfidz Juz 1-2 & Kenal IT</h4>
+                        <p class="muted">Berhasil menghafal 2 juz pertama. Mulai dikenalin dengan programming dasar oleh ustadz. "Sempet bingung bagi waktu antara setoran hafalan sama belajar coding!"</p>
+                    </div>
+                </div>
+
+                <!-- Kelas 9 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2023-2024</div>
+                    <div class="timeline-content">
+                        <h4>📚 Tahfidz Juz 3-5</h4>
+                        <p class="muted">Berhasil menghafal 5 Juz Pertama.</p>
+                    </div>
+                </div>
+
+                <!-- Kelas 10 -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2024-2025</div>
+                    <div class="timeline-content">
+                        <h4>🔑🔓 Pemilihan jurusan (RPL) - Menghafal Juz 5-7</h4>
+                        <p class="muted">Memilih jurusan Rpl (Rekayasa Perangkat Lunak) karna saya merasa lebih senang dalam belajar coding, membuat website pertama untuk tugas sekolah. Hafalan konsisten di 7 Juz. "Sering begadang ngerjain project sambil jaga hafalan, worth it banget!"</p>
+                    </div>
+                </div>
+
+                <!-- Kelas 11 (Sekarang) -->
+                <div class="timeline-item">
+                    <div class="timeline-year">2025-Sekarang</div>
+                    <div class="timeline-content">
+                        <h4>🎯 Persiapan PKL & Target Hafal 10 Juz</h4>
+                        <p class="muted">Sedang mempersiapkan Praktik Kerja Lapangan di bidang IT. Target hafalan 10 juz di akhir tahun. "Butuh banget laptop yang mumpuni buat ngejar mimpi jadi hafidz yang jago IT!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alasan Kebutuhan Laptop Section -->
+        <section class="about-section fade-in">
+            <h2>💭 Mengapa Saya Butuh Bantuan?</h2>
+            <div class="about-text">
+                <p>Saya adalah anak kedua dari tiga bersaudara. Saat ini, kondisi keuangan orang tua saya belum sepenuhnya mencukupi untuk memenuhi seluruh kebutuhan kami, karena masih ada tanggungan biaya pendidikan kakak dan adik saya.</p>
+
+                <div class="highlight-box">
+                    <h4>🎓 Inisiatif Mandiri</h4>
+                    <p>Oleh karena itu, saya berinisiatif untuk berikhtiar sendiri dalam mewujudkan impian saya tanpa ingin terlalu membebani orang tua. Melalui langkah kecil ini, saya berharap bisa sedikit meringankan beban mereka, sekaligus membuktikan bahwa keterbatasan bukan alasan untuk berhenti berjuang.</p>
+                </div>
+
+                <div class="problem-list">
+                    <div class="problem-item">
+                        <span class="problem-icon">👨‍👩‍👧‍👦</span>
+                        <div>
+                            <strong>Tanggungan Keluarga</strong>
+                            <p>Masih ada biaya pendidikan kakak dan adik yang perlu dipenuhi</p>
+                        </div>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">📚</span>
+                        <div>
+                            <strong>Kebutuhan Pendidikan</strong>
+                            <p>Laptop wajib untuk PKL dan kelanjutan studi di bidang IT</p>
+                        </div>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">🔄</span>
+                        <div>
+                            <strong>Investasi Masa Depan</strong>
+                            <p>Laptop ini akan digunakan hingga saya lulus dan bekerja nanti</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p><strong>Visi dan Misi Saya:</strong></p>
+                <p>Dengan laptop yang memadai, saya bisa lebih optimal dalam:</p>
+                
+                <ul style="color: var(--muted); margin: 16px 0; padding-left: 20px;">
+                    <li>Menyelesaikan Praktik Kerja Lapangan (PKL) dengan baik</li>
+                    <li>Mengembangkan skill programming dan software development</li>
+                    <li>Mempersiapkan diri untuk memasuki dunia kerja IT</li>
+                    <li>Terus konsisten dalam program tahfidz Qur'an</li>
+                </ul>
+
+                <div class="quote">
+                    "Saya berkomitmen akan menggunakan setiap kesempatan dan bantuan yang diberikan sebaik-baiknya. 
+                    Kelak ketika sudah berhasil, saya ingin bisa menjadi inspirasi dan membantu sesama."
+                </div>
+
+                <div class="highlight-box" style="background: rgba(74, 222, 128, 0.1); border-left-color: #4ade80;">
+                    <h4>🤲 Komitmen Saya</h4>
+                    <p>Sebagai bentuk tanggung jawab, saya berjanji untuk:</p>
+                    <ul style="margin: 12px 0; color: var(--muted);">
+                        <li>Belajar dengan sungguh-sungguh</li>
+                        <li>Menjaga dan menambah hafalan Qur'an</li>
+                        <li>Berprestasi di bidang IT dan teknologi</li>
+                        <li>Menjadi pribadi yang bermanfaat bagi banyak orang</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Section -->
+        <section class="about-section fade-in">
+            <h2>💡 Kebutuhan Laptop untuk PKL</h2>
+            <div class="about-text">
+                <p>Bulan depan saya akan memulai <strong>Praktik Kerja Lapangan (PKL)</strong> di bidang IT. Sayangnya, laptop yang tersedia di pesantren sudah tidak memadai untuk kebutuhan programming yang semakin kompleks.</p>
+
+                <div class="problem-list">
+                    <div class="problem-item">
+                        <span class="problem-icon">🐢</span>
+                        <div>
+                            <strong>Performa Terbatas</strong>
+                            <p>Sering lag dan hang saat menjalankan software development</p>
+                        </div>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">📉</span>
+                        <div>
+                            <strong>Spesifikasi Tidak Memadai</strong>
+                            <p>Tidak mendukung tools dan software programming terbaru</p>
+                        </div>
+                    </div>
+                    <div class="problem-item">
+                        <span class="problem-icon">🎯</span>
+                        <div>
+                            <strong>Kebutuhan PKL</strong>
+                            <p>Diwajibkan memiliki laptop pribadi untuk praktik lapangan</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>🎯 Kebutuhan Dana Rp 10.000.000</h4>
+                    <p>Dana ini akan digunakan untuk membeli laptop dengan spesifikasi yang memadai untuk programming, design, dan kebutuhan PKL. Dengan peralatan yang tepat, saya bisa belajar lebih optimal dan siap menghadapi dunia kerja IT.</p>
+                </div>
+
+                <div class="quote">
+                    "Setiap bantuan dan doa yang diberikan akan saya maksimalkan untuk belajar dan berkarya. 
+                    Insya Allah kelak kesempatan yang sama akan saya berikan kepada yang membutuhkan."
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery-section fade-in">
+            <h3>📸 Aktivitas di Pesantren</h3>
+            <div class="gallery-grid">
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="ngajilgi.JPG" alt="Kegiatan Tahfidz Al-Qur'an"></div>
+                    <div class="gallery-caption">Kegiatan Tahfidz Al-Qur'an</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="it.jpg" alt="Belajar Programming"></div>
+                    <div class="gallery-caption">Belajar Programming</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="last.JPG" alt="Olahraga Futsal"></div>
+                    <div class="gallery-caption">Olahraga Futsal</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="belajr.JPG" alt="Kegiatan Belajar"></div>
+                    <div class="gallery-caption">Kegiatan Belajar</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="ceremony.JPG" alt="Wisuda Tahfidz"></div>
+                    <div class="gallery-caption">Wisuda Tahfidz</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="barak.JPG" alt="Tarbiyah Alamiah"></div>
+                    <div class="gallery-caption">Tarbiyah Alamiah</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="khotmul2.JPG" alt="Khataman Al-Qur'an 30 Juz"></div>
+                    <div class="gallery-caption">Khataman Al-Qur'an 30 Juz</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="seminar IT.JPG" alt="Seminar Teknologi"></div>
+                    <div class="gallery-caption">Seminar Teknologi</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="5juz.jpg" alt="Tasmi' 5 Juz"></div>
+                    <div class="gallery-caption">Tasmi' 5 Juz</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="hasil.JPG" alt="Graduate Ceremony"></div>
+                    <div class="gallery-caption">Graduate Ceremony</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="meang.jpeg" alt="Event"></div>
+                    <div class="gallery-caption">Event</div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-image"><img src="bm.JPG" alt="Stay Cool"></div>
+                    <div class="gallery-caption">Stay Cool</div>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--muted); margin-top: 20px; font-size: 14px;">
+                * Klik foto untuk melihat lebih detail
+            </p>
+        </section>
+
+        <!-- Photo Modal -->
+        <div id="photo-modal" class="photo-modal">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <img id="modal-image" src="" alt="">
+                <div class="modal-caption" id="modal-caption"></div>
+            </div>
+        </div>
+
+        <!-- Target Section (Spek Laptop) -->
+        <section id="target" class="laptop-section fade-in">
+            <div class="laptop-card">
+                <h3 style="text-align: center; color: var(--accent1); margin-bottom: 20px;">Spesifikasi Laptop yang Dibutuhkan</h3>
+                <img src="pongo-725.png" alt="Axioo Pongo 725" id="laptop-image" loading="lazy">
+                <div class="specs">
+                    <h3>Axioo Pongo 725</h3>
+                    <ul>
+                        <li>Intel® Core™ i7-12650H (10 Core, up to 4.7GHz)</li>
+                        <li>NVIDIA® GeForce RTX™ 2050 4GB GDDR6</li>
+                        <li>15.6 Inch FHD IPS Display | 144Hz Refresh Rate</li>
+                        <li>16GB DDR4 3200MHz Memory (Upgradeable)</li>
+                        <li>512GB NVMe SSD Gen 4 (Super Fast)</li>
+                        <li>Windows 11 Home + Office Pre-installed</li>
+                        <li><strong>Harga: Rp 10.000.000</strong></li>
+                    </ul>
+                    <p style="color: var(--muted); font-size: 14px; margin-top: 15px;">
+                        Laptop dengan spesifikasi ini sangat cocok untuk programming, design, dan semua kebutuhan IT modern. Dapat mendukung pembelajaran hingga lulus nanti.
+                    </p>
+                    <a href="https://www.axiooworld.com/product/pongo-725/features" target="_blank" class="link">
+                        Lihat Detail Spesifikasi Lengkap →
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Bar -->
+        <section class="progress-section fade-in">
+            <div class="progress-wrap">
+                <div class="progress-text">
+                    <span>Dana Terkumpul: <strong id="collected-amount">Rp 0</strong></span>
+                    <span>Target: <strong>Rp 10.000.000</strong></span>
+                    <span id="percentage">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                <p style="text-align: center; color: var(--muted); margin-top: 15px; font-size: 14px;">
+                    Progress pengumpulan dana untuk kebutuhan laptop PKL
+                </p>
+            </div>
+        </section>
+
+        <!-- Payment Methods -->
+        <section id="payment" class="payment-section fade-in">
+            <h2>💳 Metode Pembayaran</h2>
+            <p style="text-align: center; color: var(--muted); margin-bottom: 30px;">
+                Pilih metode pembayaran yang paling mudah untuk Anda
+            </p>
+            <div class="payment-methods">
+                <div class="payment-method">
+                    <h4>🔲 QRIS</h4>
+                    <div class="qrcode" id="qris-code">
+                        <img src="scan.jpg" alt="QRIS Code" loading="lazy">
+                    </div>
+                    <p>Scan dengan aplikasi bank/e-wallet favorit Anda</p>
+                </div>
+
+                <div class="payment-method">
+                    <h4>🏦 Transfer Bank</h4>
+                    <p><strong>Bank BCA</strong></p>
+                    <p class="account-number">2670559389</p>
+                    <p class="account-name">a.n. Rizkiana Ariestiawati</p>
+                    <button type="button" class="btn secondary" onclick="copyToClipboard('2670559389')">
+                        Salin Nomor Rekening
+                    </button>
+                </div>
+
+                <div class="payment-method">
+                    <h4>💰 E-Wallet</h4>
+                    <p><strong>ShopeePay</strong></p>
+                    <p class="account-number">0857 1112 6564</p>
+                    <p class="account-name">a.n. Ashraf El Hafieza R.</p>
+                    <button type="button" class="btn secondary" onclick="copyToClipboard('085711126564')">
+                        Salin Nomor ShopeePay
+                    </button>
+                </div>
+
+                <div class="payment-method">
+                    <h4>💰 E-Wallet</h4>
+                    <p><strong>Gopay</strong></p>
+                    <p class="account-number">0857 1112 6564</p>
+                    <p class="account-name">a.n. Ashraf El Hafieza R.</p>
+                    <button type="button" class="btn secondary" onclick="copyToClipboard('085711126564')">
+                        Salin Nomor Gopay
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Form Section -->
+        <section id="support" class="donation fade-in">
+            <h2>🤝 Bantu Wujudkan Mimpi Ashraf</h2>
+            <p style="text-align: center; color: var(--muted); margin-bottom: 30px; line-height: 1.6;">
+                Setiap kontribusi Anda membantu perjalanan seorang santri dalam menyeimbangkan <br>
+                ilmu agama dan teknologi untuk masa depan yang lebih baik
+            </p>
+            
+            <div class="highlight-box" style="margin-bottom: 30px;">
+                <h4>🎯 Dana Akan Digunakan Untuk:</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px;">💻</div>
+                        <div style="font-size: 14px; color: var(--muted);">Laptop untuk PKL</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px;">📚</div>
+                        <div style="font-size: 14px; color: var(--muted);">Software Development</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px;">🎓</div>
+                        <div style="font-size: 14px; color: var(--muted);">Kelanjutan Studi</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px;">📖</div>
+                        <div style="font-size: 14px; color: var(--muted);">Tahfidz Qur'an</div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="donation-form">
+                <div class="form-row">
+                    <label for="name">Nama Lengkap (opsional)</label>
+                    <input type="text" id="name" placeholder="Nama Anda atau kosongkan untuk tampil sebagai 'Hamba Allah'">
+                </div>
+
+                <div class="form-row">
+                    <label for="contact">Nomor Telepon / Email <span class="required">*</span></label>
+                    <input type="text" id="contact" placeholder="08xxx atau email@domain.com" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="amount">Nominal Donasi <span class="required">*</span></label>
+                    <input type="text" id="amount" placeholder="Rp " required>
+                </div>
+
+                <div class="form-row">
+                    <label for="prayer">Pesan Doa & Dukungan</label>
+                    <textarea id="prayer" placeholder="Tuliskan doa dan dukungan untuk Ashraf... (opsional)"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <label>Upload Bukti Transfer <span class="required">*</span></label>
+                    <div class="file-upload" id="file-upload">
+                        <p>📷 Klik untuk upload bukti transfer</p>
+                        <span class="file-info">Format: JPG, PNG, PDF (Maksimal 5MB)</span>
+                    </div>
+                    <input type="file" id="file" accept="image/*,.pdf" style="display: none;">
+                </div>
+
+                <button type="submit" class="btn" id="submit-btn">Kirim Dukungan & Doa</button>
+            </form>
+        </section>
+
+        <!-- Support List -->
+        <section class="support-section fade-in">
+            <div class="support-header">
+                <h2>🌟 Para Pendukung Ashraf</h2>
+                <span class="support-subtitle">Terima kasih atas setiap doa dan dukungannya</span>
+            </div>
+            <div class="support-list" id="support-list">
+                <div class="support-item loading">
+                    Memuat data dukungan dan doa...
+                </div>
+            </div>
+        </section>
+
+        <!-- Success Popup -->
+        <div id="donation-popup" class="donation-popup">
+            <div class="popup-content">
+                <div class="popup-icon">🤝</div>
+                <h2 class="popup-title">Terima Kasih atas Dukungannya!</h2>
+                <p class="popup-message">Bantuan dan doa yang Anda berikan sangat berarti dalam perjalanan belajar saya.</p>
+                <p class="popup-highlight">Semoga menjadi amal jariyah yang terus mengalir pahalanya 🤍</p>
+                <div class="popup-quote">
+                    "Sebaik-baik manusia adalah yang paling bermanfaat bagi orang lain."<br>
+                    <small>(HR. Ahmad, ath-Thabrani, ad-Daruqutni)</small>
+                </div>
+                <p class="popup-message">Dukungan dan doa Anda telah tercatat. Progress akan terupdate dalam beberapa saat.</p>
+                <button class="popup-close" onclick="closeDonationPopup()">Tutup</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer fade-in">
+            <div class="footer-content">
+                <div>© 2025 Ashraf El-Hafieza Rusmana | Semua Hak Dilindungi</div>
+                <div class="footer-links">
+                    Kontak: <a href="mailto:arusmanagg@gmail.com">arusmanagg@gmail.com</a> |
+                    <a href="https://wa.me/6285711126564" target="_blank">WhatsApp</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
