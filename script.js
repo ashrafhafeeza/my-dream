@@ -294,7 +294,7 @@ function displayDonations(donations) {
     if (donations.length === 0) {
         supportList.innerHTML = `
             <div class="support-item loading">
-                Belum ada dukungan dan doa. Jadilah yang pertama! 💚
+                🤲 Doa terbaik Anda adalah support terbesar untuk Ashraf
             </div>
         `;
         return;
@@ -672,6 +672,7 @@ function setupFormSubmission() {
         }
     });
 }
+
 
 // ===== DONATION POPUP =====
 function showDonationPopup() {
