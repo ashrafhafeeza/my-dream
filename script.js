@@ -9,9 +9,6 @@ const firebaseConfig = {
     appId: "1:287792466185:web:0e7bc04da2cf8ba37eabd8"
 };
 
-const CLOUD_NAME = 'dt1bghcm4';
-const UPLOAD_PRESET = 'mobile_upload';
-
 // ===== INITIALIZE FIREBASE =====
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
@@ -25,6 +22,8 @@ const targetAmount = 10000000;
 // Show notification
 function showNotification(message, type = 'success') {
     const notification = document.getElementById('notification');
+    if (!notification) return;
+    
     notification.textContent = message;
     notification.className = `notification ${type} show`;
     
@@ -78,6 +77,8 @@ function fallbackCopy(text) {
 // ===== NAVBAR SMART HIDE =====
 function setupSmartNavbar() {
     const header = document.getElementById('header');
+    if (!header) return;
+    
     let lastScroll = 0;
     let ticking = false;
 
@@ -112,6 +113,8 @@ function setupMobileMenu() {
     const mobileToggle = document.getElementById('mobile-toggle');
     const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
+
+    if (!mobileToggle || !navbar) return;
 
     function toggleMenu() {
         mobileToggle.classList.toggle('active');
@@ -252,6 +255,8 @@ function updateProgressBar() {
     const percentageText = document.getElementById('percentage');
     const collectedAmount = document.getElementById('collected-amount');
 
+    if (!progressBar || !percentageText || !collectedAmount) return;
+
     const percentage = Math.min((totalDonations / targetAmount) * 100, 100);
 
     // Use requestAnimationFrame for smooth animation
@@ -290,6 +295,7 @@ function loadDonations() {
 // ===== DISPLAY DONATIONS =====
 function displayDonations(donations) {
     const supportList = document.getElementById('support-list');
+    if (!supportList) return;
 
     if (donations.length === 0) {
         supportList.innerHTML = `
@@ -328,109 +334,6 @@ function displayDonations(donations) {
     });
 }
 
-// ===== UPLOAD FILE TO CLOUDINARY =====
-async function uploadFile(file) {
-    return new Promise((resolve, reject) => {
-        console.log('=== STARTING CLOUDINARY UPLOAD ===');
-        console.log('File details:', {
-            name: file.name,
-            size: (file.size / 1024 / 1024).toFixed(2) + ' MB',
-            type: file.type
-        });
-
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', UPLOAD_PRESET);
-
-        const xhr = new XMLHttpRequest();
-
-        xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, true);
-        xhr.timeout = 30000; // 30 second timeout
-
-        xhr.upload.onprogress = function (e) {
-            if (e.lengthComputable) {
-                const percentComplete = (e.loaded / e.total) * 100;
-                console.log('Upload progress:', percentComplete.toFixed(0) + '%');
-            }
-        };
-
-        xhr.onload = function () {
-            console.log('XHR status:', xhr.status);
-            
-            if (xhr.status === 200) {
-                try {
-                    const data = JSON.parse(xhr.responseText);
-                    console.log('✅ Upload successful!');
-                    console.log('File URL:', data.secure_url);
-                    resolve(data.secure_url);
-                } catch (e) {
-                    console.error('Error parsing response:', e);
-                    reject(new Error('Gagal memproses response dari Cloudinary'));
-                }
-            } else {
-                console.error('Upload failed with status:', xhr.status);
-                reject(new Error('Upload gagal. Status: ' + xhr.status));
-            }
-        };
-
-        xhr.onerror = function () {
-            console.error('XHR error occurred');
-            reject(new Error('Network error saat upload'));
-        };
-
-        xhr.ontimeout = function () {
-            console.error('XHR timeout');
-            reject(new Error('Upload timeout'));
-        };
-
-        console.log('Sending request to Cloudinary...');
-        xhr.send(formData);
-    });
-}
-
-// ===== FILE UPLOAD SETUP =====
-function setupFileUpload() {
-    const fileUpload = document.getElementById('file-upload');
-    const fileInput = document.getElementById('file');
-
-    if (!fileUpload || !fileInput) {
-        console.error('File upload elements not found');
-        return;
-    }
-
-    console.log('File upload setup initialized');
-
-    fileUpload.addEventListener('click', function (e) {
-        console.log('File upload div clicked');
-        fileInput.click();
-    });
-
-    fileInput.addEventListener('change', function (e) {
-        console.log('File input changed, files:', this.files);
-
-        if (this.files && this.files.length > 0) {
-            const file = this.files[0];
-            const fileSize = (file.size / 1024 / 1024).toFixed(2);
-
-            console.log('File selected:', {
-                name: file.name,
-                size: fileSize + ' MB',
-                type: file.type
-            });
-
-            fileUpload.innerHTML = `
-                <p style="margin: 0 0 8px 0;">✅ <strong>File terpilih:</strong> ${file.name}</p>
-                <span class="file-info">Ukuran: ${fileSize} MB</span>
-            `;
-            fileUpload.classList.add('has-file');
-
-            showNotification('File berhasil dipilih: ' + file.name, 'success');
-        } else {
-            console.log('No file selected');
-        }
-    });
-}
-
 // ===== AMOUNT INPUT FORMATTING =====
 function setupAmountFormatting() {
     const amountInput = document.getElementById('amount');
@@ -464,9 +367,9 @@ function setupAmountFormatting() {
 }
 
 // ===== FORM VALIDATION =====
-function validateForm(name, contact, amount, file) {
+function validateForm(name, contact, amount) {
     console.log('=== VALIDATING FORM ===');
-    console.log('Validation data:', { name, contact, amount, hasFile: !!file });
+    console.log('Validation data:', { name, contact, amount });
 
     if (!contact || contact.trim() === '') {
         console.error('Contact is empty');
@@ -484,29 +387,6 @@ function validateForm(name, contact, amount, file) {
     if (!amount || amount < 1000) {
         console.error('Amount is invalid:', amount);
         showNotification('⚠️ Nominal donasi minimal Rp 1.000', 'error');
-        return false;
-    }
-
-    if (!file) {
-        console.error('No file provided');
-        showNotification('⚠️ Harap upload bukti transfer', 'error');
-        return false;
-    }
-
-    // Validate file type
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'];
-    if (!validTypes.includes(file.type)) {
-        console.error('Invalid file type:', file.type);
-        showNotification('⚠️ File harus berupa gambar (JPG, PNG, GIF, WEBP) atau PDF', 'error');
-        return false;
-    }
-
-    // Validate file size (5MB)
-    const maxSize = 5 * 1024 * 1024;
-    if (file.size > maxSize) {
-        const fileSize = (file.size / 1024 / 1024).toFixed(2);
-        console.error('File too large:', fileSize + 'MB');
-        showNotification('⚠️ Ukuran file maksimal 5MB. File Anda: ' + fileSize + 'MB', 'error');
         return false;
     }
 
@@ -537,10 +417,9 @@ function setupFormSubmission() {
         const contactInput = document.getElementById('contact');
         const amountInput = document.getElementById('amount');
         const prayerInput = document.getElementById('prayer');
-        const fileInput = document.getElementById('file');
 
         // Check if all elements exist
-        if (!nameInput || !contactInput || !amountInput || !prayerInput || !fileInput) {
+        if (!nameInput || !contactInput || !amountInput || !prayerInput) {
             console.error('Form input elements not found');
             showNotification('❌ Error: Form elements tidak ditemukan', 'error');
             return;
@@ -556,25 +435,16 @@ function setupFormSubmission() {
             name: nameValue || 'Hamba Allah',
             contact: contact,
             amount: amountValue,
-            prayer: prayer ? prayer.substring(0, 50) + '...' : 'none',
-            filesCount: fileInput.files.length
+            prayer: prayer ? prayer.substring(0, 50) + '...' : 'none'
         });
 
-        // Check if file exists
-        if (!fileInput.files || fileInput.files.length === 0) {
-            console.error('No file selected');
-            showNotification('⚠️ Harap upload bukti transfer terlebih dahulu', 'error');
-            return;
-        }
-
-        const file = fileInput.files[0];
         const name = nameValue || 'Hamba Allah';
         const amount = parseRupiah(amountValue);
 
-        console.log('Parsed data:', { name, contact, amount, fileName: file.name });
+        console.log('Parsed data:', { name, contact, amount });
 
         // Validate
-        if (!validateForm(name, contact, amount, file)) {
+        if (!validateForm(name, contact, amount)) {
             return;
         }
 
@@ -585,25 +455,15 @@ function setupFormSubmission() {
         submitBtn.style.cursor = 'not-allowed';
 
         try {
-            // Step 1: Upload file to Cloudinary
-            showNotification('📤 Mengupload bukti transfer... Mohon tunggu', 'success');
-            console.log('=== STEP 1: Uploading to Cloudinary ===');
-
-            const proofUrl = await uploadFile(file);
-
-            console.log('✅ Cloudinary upload complete');
-            console.log('Proof URL:', proofUrl);
-
-            // Step 2: Save to Firebase
+            // Save to Firebase
             showNotification('💾 Menyimpan data donasi ke database...', 'success');
-            console.log('=== STEP 2: Saving to Firebase ===');
+            console.log('=== Saving to Firebase ===');
 
             const donationData = {
                 name: name,
                 contact: contact,
                 amount: amount,
                 prayer: prayer || '',
-                proofUrl: proofUrl,
                 anonymous: name === 'Hamba Allah',
                 timestamp: Date.now()
             };
@@ -622,14 +482,6 @@ function setupFormSubmission() {
 
             // Reset form
             form.reset();
-            const fileUploadDiv = document.getElementById('file-upload');
-            if (fileUploadDiv) {
-                fileUploadDiv.innerHTML = `
-                    <p>📷 Klik untuk upload bukti transfer</p>
-                    <span class="file-info">Format: JPG, PNG, PDF (Max 5MB)</span>
-                `;
-                fileUploadDiv.classList.remove('has-file');
-            }
             amountInput.value = 'Rp ';
 
             console.log('Form reset complete');
@@ -654,9 +506,7 @@ function setupFormSubmission() {
             console.error('Error message:', error.message);
 
             let userMessage = '❌ Terjadi kesalahan saat mengirim donasi';
-            if (error.message.includes('timeout')) {
-                userMessage = '❌ Upload timeout. Coba lagi dengan koneksi yang lebih stabil';
-            } else if (error.message.includes('network')) {
+            if (error.message.includes('network')) {
                 userMessage = '❌ Gagal terhubung ke internet. Periksa koneksi Anda';
             }
 
@@ -664,7 +514,7 @@ function setupFormSubmission() {
         } finally {
             // Re-enable submit button
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Kirim Donasi & Doa';
+            submitBtn.textContent = 'Kirim Dukungan & Doa';
             submitBtn.style.opacity = '1';
             submitBtn.style.cursor = 'pointer';
 
@@ -672,7 +522,6 @@ function setupFormSubmission() {
         }
     });
 }
-
 
 // ===== DONATION POPUP =====
 function showDonationPopup() {
@@ -694,6 +543,8 @@ function closeDonationPopup() {
 
 function createConfetti() {
     const popup = document.getElementById('donation-popup');
+    if (!popup) return;
+    
     const colors = ['#00c8ff', '#00ffb3', '#ff6b6b', '#ffd93d', '#6b5fff'];
 
     for (let i = 0; i < 50; i++) {
@@ -716,6 +567,7 @@ function createConfetti() {
 // Setup popup event listeners
 function setupPopupEvents() {
     const popup = document.getElementById('donation-popup');
+    if (!popup) return;
     
     // Close popup when clicking outside
     popup.addEventListener('click', function (e) {
@@ -732,6 +584,84 @@ function setupPopupEvents() {
     });
 }
 
+// ===== PHOTO MODAL FUNCTIONALITY =====
+function initPhotoModal() {
+    const galleryCards = document.querySelectorAll('.gallery-card');
+    const modal = document.getElementById('photo-modal');
+    const closeBtn = document.querySelector('.modal-close');
+    
+    if (!galleryCards.length || !modal || !closeBtn) return;
+
+    let currentPhotoIndex = 0;
+    let galleryPhotos = [];
+
+    galleryPhotos = Array.from(galleryCards).map(card => {
+        const img = card.querySelector('img');
+        const caption = card.querySelector('.gallery-caption');
+        return {
+            src: img.src,
+            alt: img.alt,
+            caption: caption.textContent
+        };
+    });
+
+    // Add click event to each gallery card
+    galleryCards.forEach((card, index) => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => openPhotoModal(index));
+    });
+
+    function openPhotoModal(index) {
+        currentPhotoIndex = index;
+        const modalImage = document.getElementById('modal-image');
+        const modalCaption = document.getElementById('modal-caption');
+        
+        if (!modalImage || !modalCaption) return;
+        
+        modalImage.src = galleryPhotos[index].src;
+        modalImage.alt = galleryPhotos[index].alt;
+        modalCaption.textContent = galleryPhotos[index].caption;
+        
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePhotoModal() {
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    function navigatePhotos(direction) {
+        currentPhotoIndex += direction;
+        
+        // Loop around
+        if (currentPhotoIndex < 0) {
+            currentPhotoIndex = galleryPhotos.length - 1;
+        } else if (currentPhotoIndex >= galleryPhotos.length) {
+            currentPhotoIndex = 0;
+        }
+        
+        openPhotoModal(currentPhotoIndex);
+    }
+
+    // Modal close event
+    closeBtn.addEventListener('click', closePhotoModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closePhotoModal();
+        }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (modal.classList.contains('show')) {
+            if (e.key === 'Escape') closePhotoModal();
+            if (e.key === 'ArrowLeft') navigatePhotos(-1);
+            if (e.key === 'ArrowRight') navigatePhotos(1);
+        }
+    });
+}
+
 // ===== PERFORMANCE OPTIMIZATIONS =====
 function setupPerformance() {
     // Lazy load images
@@ -740,9 +670,11 @@ function setupPerformance() {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                    imageObserver.unobserve(img);
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
                 }
             });
         });
@@ -775,11 +707,11 @@ function init() {
         setupSmoothScroll();
         setupAnimations();
         setupActiveNav();
-        setupFileUpload();
         setupAmountFormatting();
         setupFormSubmission();
         setupPopupEvents();
         setupPerformance();
+        initPhotoModal();
         
         // Load data
         loadDonations();
@@ -801,84 +733,3 @@ if (document.readyState === 'loading') {
 // Export functions for global access
 window.copyToClipboard = copyToClipboard;
 window.closeDonationPopup = closeDonationPopup;
-
-// Photo Modal Functionality
-let currentPhotoIndex = 0;
-let galleryPhotos = [];
-
-function initPhotoModal() {
-    const galleryCards = document.querySelectorAll('.gallery-card');
-    galleryPhotos = Array.from(galleryCards).map(card => {
-        const img = card.querySelector('img');
-        const caption = card.querySelector('.gallery-caption');
-        return {
-            src: img.src,
-            alt: img.alt,
-            caption: caption.textContent
-        };
-    });
-
-    // Add click event to each gallery card
-    galleryCards.forEach((card, index) => {
-        card.style.cursor = 'pointer';
-        card.addEventListener('click', () => openPhotoModal(index));
-    });
-
-    // Modal close event
-    const modal = document.getElementById('photo-modal');
-    const closeBtn = document.querySelector('.modal-close');
-    
-    closeBtn.addEventListener('click', closePhotoModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closePhotoModal();
-        }
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (modal.classList.contains('show')) {
-            if (e.key === 'Escape') closePhotoModal();
-            if (e.key === 'ArrowLeft') navigatePhotos(-1);
-            if (e.key === 'ArrowRight') navigatePhotos(1);
-        }
-    });
-}
-
-function openPhotoModal(index) {
-    currentPhotoIndex = index;
-    const modal = document.getElementById('photo-modal');
-    const modalImage = document.getElementById('modal-image');
-    const modalCaption = document.getElementById('modal-caption');
-    
-    modalImage.src = galleryPhotos[index].src;
-    modalImage.alt = galleryPhotos[index].alt;
-    modalCaption.textContent = galleryPhotos[index].caption;
-    
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
-}
-
-function closePhotoModal() {
-    const modal = document.getElementById('photo-modal');
-    modal.classList.remove('show');
-    document.body.style.overflow = ''; // Re-enable scrolling
-}
-
-function navigatePhotos(direction) {
-    currentPhotoIndex += direction;
-    
-    // Loop around
-    if (currentPhotoIndex < 0) {
-        currentPhotoIndex = galleryPhotos.length - 1;
-    } else if (currentPhotoIndex >= galleryPhotos.length) {
-        currentPhotoIndex = 0;
-    }
-    
-    openPhotoModal(currentPhotoIndex);
-}
-
-// Initialize when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initPhotoModal();
-});
